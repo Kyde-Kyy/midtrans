@@ -16,17 +16,13 @@ module.exports = async ({ req, res, log, error }) => {
         if (req.path === '/generate-token' && req.method === 'POST') {
             // Ambil data dari body yang dikirim Flutter
             const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-            const { orderId, grossAmount, customerName, customerEmail } = body;
+            const { orderId, grossAmount } = body;
 
             const parameter = {
                 transaction_details: {
                     order_id: orderId,
                     gross_amount: grossAmount
                 },
-                customer_details: {
-                    first_name: customerName,
-                    email: customerEmail
-                }
             };
 
             const transaction = await snap.createTransaction(parameter);
